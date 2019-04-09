@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>select box demo</title>
+    <script src="js/jquery.min.1.9.1.js"></script>
+    <script src="js/jquery.selectBox.1.0.3.js"></script>
+    <style type="text/css">
+        html,body,div{ line-height: 240%; }
+        .example{ margin: 20px 0; }
+        .picker-container{ border: #dddddd 1px solid;display: table-cell; }
+    </style>
+</head>
+<body>
+
+<label>城市编码一: <input type="text" id="city_ids" value="440000,440100,440106" /></label><br />
+<label>城市编码二: <input type="text" id="city_ids2" value="360000,," /></label><br />
+<label>城市编码三: <input type="text" id="city_ids3" value="430000,430100," /></label><br />
+<script>
+    var cityIds = $("#city_ids").val().split(",");
+    var cityIds2 = $("#city_ids2").val().split(",");
+    var cityIds3 = $("#city_ids3").val().split(",");
+</script>
+<div class="example">
+    城市编码一 初始化，展示文本：<div id="cityChoice1" class="picker-container"></div>
+</div>
+<script>
+    //省市选择
+    $("#cityChoice1").selectBox({
+        "data": "data/city.json.js",
+        "controls": [
+            {
+                "value": cityIds[ 0 ]
+            },
+            {
+                "value": cityIds[ 1 ]
+            },
+            {
+                "value": cityIds[ 2 ]
+            }
+        ],
+        "style": "text"
+    });
+</script>
+<div class="example">
+    城市编码二 初始化必选的选择列表：<div id="cityChoice2" class="picker-container"></div>
+</div>
+<script>
+    //省市选择
+    $("#cityChoice2").selectBox({
+        "data": "data/city.json.js",
+        "controls": [
+            {
+                "id": "city_2_1",
+                "name": "provId2",
+                "value": cityIds2[ 0 ]
+            },
+            {
+                "id": "city_2_2",
+                "name": "cityId2",
+                "value": cityIds2[ 1 ]
+            },
+            {
+                "id": "city_2_3",
+                "name": "areaId2",
+                "value": cityIds2[ 2 ]
+            }
+        ],
+        "style": "none",
+        "required": true,
+        "callback": function (index, value, boxObj) {
+            console.log(index, value, boxObj);
+        }
+    });
+</script>
+<div class="example">
+    城市编码三 初始化可选的占位选择列表：<div id="cityChoice3" class="picker-container"></div>
+</div>
+<script>
+    //省市选择
+    $("#cityChoice3").selectBox({
+        "data": "data/city.json.js",
+        "controls": [
+            {
+                "id": "city_3_1",
+                "name": "provId3",
+                "value": cityIds3[ 0 ],
+                "default": {
+                    "text": "-请选择省-"
+                }
+            },
+            {
+                "id": "city_3_2",
+                "name": "cityId3",
+                "value": cityIds3[ 1 ],
+                "default": {
+                    "text": "-请选择市-"
+                }
+            },
+            {
+                "id": "city_3_3",
+                "name": "areaId3",
+                "value": cityIds3[ 2 ],
+                "default": {
+                    "text": "-请选择地区-"
+                }
+            }
+        ],
+        "style": "hidden",
+        "callback": function (index, value, boxObj) {
+            console.log(index, value, boxObj);
+        }
+    });
+</script>
+<div class="example">
+    城市编码三 初始化带标签的可选的占位选择列表：<div id="cityChoice4" class="picker-container"></div>
+</div>
+<script>
+    //省市选择
+    $("#cityChoice4").selectBox({
+        "data": "data/city.json.js",
+        "controls": [
+            {
+                "id": "city_4_1",
+                "label": "省",
+                "name": "provId4",
+                "value": cityIds3[ 0 ],
+                "default": {
+                    "text": "-请选择-"
+                }
+            },
+            {
+                "id": "city_4_2",
+                "label": "市",
+                "name": "cityId4",
+                "value": cityIds3[ 1 ],
+                "default": {
+                    "text": "-请选择-"
+                }
+            },
+            {
+                "id": "city_4_3",
+                "label": "区",
+                "name": "areaId4",
+                "value": cityIds3[ 2 ],
+                "default": {
+                    "text": "-请选择-"
+                }
+            }
+        ],
+        "style": "hidden",
+        "callback": function (index, value, boxObj) {
+            console.log(index, value, boxObj);
+        }
+    });
+</script>
+<div class="example">
+    自定义数据级联列表：<div id="customizeChoice1" class="picker-container"></div>
+</div>
+<script>
+    //省市选择
+    $("#customizeChoice1").selectBox({
+        "data": [ {
+            "children": [ {
+                "children": [ { "children": [], "code": "33", "name": "主任医师" }, {
+                    "children": [],
+                    "code": "34",
+                    "name": "主任药师"
+                }, { "children": [], "code": "35", "name": "主任护师" }, { "children": [], "code": "36", "name": "主任技师" } ],
+                "code": "29",
+                "name": "正高级"
+            }, {
+                "children": [ { "children": [], "code": "37", "name": "副主任医师" }, {
+                    "children": [],
+                    "code": "38",
+                    "name": "副主任药师"
+                }, { "children": [], "code": "39", "name": "副主任护师" }, {
+                    "children": [],
+                    "code": "40",
+                    "name": "副主任技师"
+                } ], "code": "30", "name": "副高级"
+            }, {
+                "children": [ {
+                    "children": [],
+                    "code": "41",
+                    "name": "主治医师"
+                }, {
+                    "children": [],
+                    "code": "42",
+                    "name": "主管药师"
+                }, {
+                    "children": [],
+                    "code": "43",
+                    "name": "主管护师"
+                }, {
+                    "children": [],
+                    "code": "44",
+                    "name": "主管技师"
+                } ],
+                "code": "31",
+                "name": "中级"
+            }, {
+                "children": [ {
+                    "children": [],
+                    "code": "45",
+                    "name": "医师、医士"
+                }, {
+                    "children": [],
+                    "code": "46",
+                    "name": "药师、药士"
+                }, {
+                    "children": [],
+                    "code": "47",
+                    "name": "护师、护士"
+                }, {
+                    "children": [],
+                    "code": "48",
+                    "name": "技师、技士"
+                } ],
+                "code": "32",
+                "name": "初级"
+            } ],
+            "code": "28",
+            "name": "卫生技术人员"
+        }, {
+            "children": [ {
+                "children": [ {
+                    "children": [],
+                    "code": "24",
+                    "name": "教授级高级实验师"
+                } ],
+                "code": "20",
+                "name": "正高级"
+            }, {
+                "children": [ {
+                    "children": [],
+                    "code": "25",
+                    "name": "高级实验师"
+                } ],
+                "code": "21",
+                "name": "副高级"
+            }, {
+                "children": [ {
+                    "children": [],
+                    "code": "26",
+                    "name": "实验师"
+                } ],
+                "code": "22",
+                "name": "中级"
+            }, {
+                "children": [ {
+                    "children": [],
+                    "code": "27",
+                    "name": "助理实验师、实验员"
+                } ],
+                "code": "23",
+                "name": "初级"
+            } ],
+            "code": "19",
+            "name": "实验技术人员"
+        }, {
+            "children": [ {
+                "children": [ {
+                    "children": [],
+                    "code": "15",
+                    "name": "教授级工程工程师"
+                } ],
+                "code": "11",
+                "name": "正高级"
+            }, {
+                "children": [ {
+                    "children": [],
+                    "code": "16",
+                    "name": "高级工程师"
+                } ],
+                "code": "12",
+                "name": "副高级"
+            }, {
+                "children": [ {
+                    "children": [],
+                    "code": "17",
+                    "name": "工程师"
+                } ],
+                "code": "13",
+                "name": "中级"
+            }, {
+                "children": [ {
+                    "children": [],
+                    "code": "18",
+                    "name": "助理工程师、技术员"
+                } ],
+                "code": "14",
+                "name": "初级"
+            } ],
+            "code": "10",
+            "name": "工程技术人员"
+        }, {
+            "children": [ {
+                "children": [ {
+                    "children": [],
+                    "code": "6",
+                    "name": "教授"
+                } ],
+                "code": "2",
+                "name": "正高级"
+            }, {
+                "children": [ {
+                    "children": [],
+                    "code": "7",
+                    "name": "副教授"
+                } ],
+                "code": "3",
+                "name": "副高级"
+            }, {
+                "children": [ {
+                    "children": [],
+                    "code": "8",
+                    "name": "讲师"
+                } ],
+                "code": "4",
+                "name": "中级"
+            }, {
+                "children": [ {
+                    "children": [],
+                    "code": "9",
+                    "name": "助理讲师"
+                } ],
+                "code": "5",
+                "name": "初级"
+            } ],
+            "code": "1",
+            "name": "高等学校教师"
+        } ],
+        "controls": [ {
+            "id": "c_5_1",
+            "name": "c5_1",
+            "default": {
+                "text": "-请选择-"
+            }
+        }, {
+            "id": "c_5_2",
+            "name": "c5_2",
+            "default": {
+                "text": "-请选择-"
+            }
+        }, {
+            "id": "c_5_3",
+            "name": "c5_3",
+            "default": {
+                "text": "-请选择-"
+            }
+        } ],
+        "style": "hidden",
+        "callback": function (index, value, boxObj) {
+            console.log(index, value, boxObj);
+        }
+    });
+</script>
+</body>
+</html>
